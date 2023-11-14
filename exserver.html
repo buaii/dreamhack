@@ -29,7 +29,7 @@
     async function search(query) {
         try {
             await req(
-              `https://host3.dreamhack.games:9962/search?keyword=${query}`
+              `http://host3.dreamhack.games:9962/search?keyword=${query}`
             );
             return true;
         } catch (e) {
