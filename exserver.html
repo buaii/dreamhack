@@ -12,9 +12,11 @@
                 // 요청이 완료되었을 때
                 if (xhr.status == 404) {
                   // 성공적인 응답
+                    console.log(xhr.status);
                   return reject();
                 } else {
                   // 다른 상태 코드에 대한 처리
+                    console.log(xhr.status);
                   return resolve();                    
                 }
               }
