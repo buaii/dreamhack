@@ -8,9 +8,9 @@
             document.body.appendChild(iframe);
 
             iframe.onload = function() {
-                // 내부 윈도우의 문서에서 <div> 요소들을 선택
-                var divElements = iframe.contentWindow.document.querySelectorAll('div');
-                if (divElements.length == 0) {
+                var status = iframe.contentWindow.document.readyState;
+                console.log("Status code:", status);
+                if (status == 404) {
                     return reject();
                 } else {
                     return resolve();
