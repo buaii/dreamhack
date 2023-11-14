@@ -3,9 +3,8 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-
             var img = document.getElementById('img');
-
+            img.src = url;
             img.addEventListener('error', function() {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
