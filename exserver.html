@@ -3,29 +3,19 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-            var img = document.createElement("img");
-            img.src = url;
-            document.body.appendChild(img);
-            
-            img.addEventListener('error', function() {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 404) {
-                            console.log('Image not found (404 Not Found)');
-                            // 여기에서 404 오류를 처리하거나 필요한 작업을 수행할 수 있습니다.
-                            return reject();
-                        } else {
-                            console.log('Other error:', xhr.status);
-                            // 다른 종류의 오류를 처리할 수도 있습니다.
-                            return resolve();
-                        }
-                    }
-                };
+            var iframe = document.getElementById("iframe");
+            iframe.src = url;
+            document.body.appendChild(iframe);
 
-                xhr.open('GET', img.src, true);
-                xhr.send();
-            });            
+            iframe.onload = function() {
+                // 내부 윈도우의 문서에서 <div> 요소들을 선택
+                var divElements = iframe.contentWindow.document.querySelectorAll('div');
+                if (divElements.length == 0) {
+                    return reject();
+                } else {
+                    return resolve();
+                }
+            };    
         });
     }
     async function search(query) {
