@@ -3,26 +3,16 @@
 <script>
     async function req(url) {
         return await new Promise((resolve, reject) => {
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', url, true);
-
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState == 4) {
-                // 요청이 완료되었을 때
-                if (xhr.status == 200) {
-                  // 성공적인 응답
-                    console.log(xhr.status);
-                  return resolve();
-                } else {
-                  // 다른 상태 코드에 대한 처리
-                    console.log(xhr.status);
-                  return reject();                    
-                }
-              }
-            };
-
-            xhr.send();
+			var myiframe = document.createElement('iframe');
+			myiframe.src = url;
+			myiframe.onload = function () {
+				console.log("first request");
+				myiframe.onload = function () {
+					console.log("second request");
+				}
+				myiframe.src = myiframe.src + '#'
+			}
+			document.body.appendChild(myiframe);
 
         });
     }
